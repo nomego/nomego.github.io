@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>nomego labs</title>
+    <!-- conditionally load polyfills - thanks to https://github.com/geelen/x-gif -->
+    <script>
+      if ('registerElement' in document
+        && 'createShadowRoot' in HTMLElement.prototype
+        && 'import' in document.createElement('link')
+        && 'content' in document.createElement('template')) {
+      } else {
+        document.write('<script src="https://www.polymer-project.org/0.5/components/webcomponentsjs/webcomponents.min.js"><\/script>');
+      }
+    </script>
+    <style>
+      body {
+        font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      }
+    </style>
+    <link rel="import" href="https://www.polymer-project.org/0.5/components/polymer/polymer.html">
+    <link rel="import" href="scaffold-layout.html">
+    <link rel="import" href="https://erikringsmuth.github.io/app-router/bower_components/app-router/app-router.html">
+  </head>
+  <body unresolved>
+    <app-router mode="hash">
+      <app-route path="/" import="elbil.html" template></app-route>
+    </app-router>
+  </body>
+</html>
