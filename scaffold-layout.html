@@ -6,6 +6,7 @@
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-item/core-item.html">
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-icons/maps-icons.html">
 <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="https://www.polymer-project.org/0.5/components/paper-item/paper-item.html">
 
 <polymer-element name="scaffold-layout" noscript>
   <template>
@@ -23,12 +24,20 @@
       .content {
         padding: 5px 20px 40px 20px;
       }
+      paper-item core-icon {
+        margin-right: 16px;
+      }
+      paper-item a {
+        text-decoration: none;
+        font-weight: 400;
+        color: #263238;
+      }
     </style>
     <core-drawer-panel>
       <core-header-panel drawer flex>
         <core-toolbar class="{{color}}">nomego labs</core-toolbar>
         <div>
-          <core-item icon="maps:directions-car" label="Elbil" active?="{{selected == 'elbil'}}"><a is="pushstate-anchor" href="#/"></a></core-item>
+        <paper-item><core-icon icon="maps:directions-car" active?="{{selected == 'elbil'}}"></core-icon><a href="#/">Elbil</a></paper-item>
         </div>
       </core-header-panel>
       <core-header-panel main>

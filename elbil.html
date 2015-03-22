@@ -11,6 +11,12 @@
 
 <template>
 	<style>
+		* {
+			color: #37474F;
+		}
+		.title {
+			color: #ECEFF1;
+		}
 		core-field {
 			position: relative;
 		}
@@ -55,12 +61,12 @@
 
 					<core-field>
 						<label flex>Valuta</label>
-						<paper-input value="{{ currency }}"></paper-input>
+						<paper-input flex value="{{ currency }}"></paper-input>
 					</core-field>
 
 					<core-field>
 						<label flex>Enhet</label>
-						<paper-input value="{{ moneyUnit }}"></paper-input>
+						<paper-input flex value="{{ moneyUnit }}"></paper-input>
 					</core-field>
 				</paper-shadow>
 			</div>
@@ -75,13 +81,13 @@
 
 					<core-field>
 						<label flex>Spänning</label>
-						<paper-input value="{{ volt }}"></paper-input>
+						<paper-input flex value="{{ volt }}"></paper-input>
 						<label class="after">volt</label>
 					</core-field>
 
 					<core-field>
 						<label flex>Strömstyrka</label>
-						<paper-input type="number" value="{{ ampere }}"></paper-input>
+						<paper-input flex type="number" value="{{ ampere }}"></paper-input>
 						<label class="after">ampere</label>
 					</core-field>
 
@@ -95,7 +101,7 @@
 
 					<core-field>
 						<label flex>Laddningstid</label>
-						<paper-input type="number" value="{{ chargingTime }}"></paper-input>
+						<paper-input flex type="number" value="{{ chargingTime }}"></paper-input>
 						<label class="after">timmar</label>
 					</core-field>
 
@@ -107,7 +113,7 @@
 
 					<core-field>
 						<label flex>Pris per kWh</label>
-						<paper-input type="number" value="{{ kwhPrice }}"></paper-input>
+						<paper-input flex type="number" value="{{ kwhPrice }}"></paper-input>
 						<label class="after">{{ moneyUnit }} {{ currency }}</label>
 					</core-field>
 
@@ -123,7 +129,7 @@
 
 					<core-field>
 						<label flex>Räckvidd</label>
-						<paper-input type="number" value="{{ evDistance }}"></paper-input>
+						<paper-input flex type="number" value="{{ evDistance }}"></paper-input>
 						<label class="after">kilometer</label>
 					</core-field>
 
@@ -143,12 +149,12 @@
 
 					<core-field>
 						<label flex>Bensinkostnad per liter</label>
-						<paper-input type="number" value="{{ literFuelCharge }}"></paper-input>
+						<paper-input flex type="number" value="{{ literFuelCharge }}"></paper-input>
 						<label class="after">{{ moneyUnit }} {{ currency }}</label>
 					</core-field>
 					<core-field>
 						<label flex>Förbrukning per mil</label>
-						<paper-input type="number" value="{{ fuelBurn }}"></paper-input>
+						<paper-input flex type="number" value="{{ fuelBurn }}"></paper-input>
 						<label class="after">liter</label>
 					</core-field>
 
