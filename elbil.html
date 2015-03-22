@@ -3,9 +3,12 @@
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-icons/core-icons.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-field/core-field.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-input/core-input.html" />
+<link rel="import" href="https://www.polymer-project.org/0.5/components/core-menu/core-menu.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/font-roboto/roboto.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-input/paper-input-decorator.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-input/paper-input.html" />
+<link rel="import" href="https://www.polymer-project.org/0.5/components/paper-dropdown/paper-dropdown.html" />
+<link rel="import" href="https://www.polymer-project.org/0.5/components/paper-dropdown-menu/paper-dropdown-menu.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-shadow/paper-shadow.html" />
 <link rel="import" href="scaffold-layout.html" />
 
@@ -42,8 +45,12 @@
 			font-size: 0.8em;
 			font-style: italic;
 		}
-		.card :first-child {
-			margin-top: 0;
+		.card :first-child,
+		.card :first-child * {
+			margin: 0;
+		}
+		.card paper-dropdown-menu {
+			font-size: 0.8em;
 		}
 		.card :last-child {
 			margin-bottom: 0;
@@ -71,13 +78,35 @@
 				</paper-shadow>
 			</div>
 
-			<h2>Elbil</h2>
+			<div horizontal layout>
+				<h2 flex>Elbil</h2>
+				<paper-dropdown-menu label="Välj bil">
+					<paper-dropdown class="dropdown" halign="right">
+						<core-menu class="menu" on-core-select="{{ setEvCarValues }}">
+							<template repeat="{{ evCar in evCars }}">
+								<paper-item>{{ evCar.name }}</paper-item>
+							</template>
+						</core-menu>
+					</paper-dropdown>
+				</paper-dropdown-menu>
+			</div>
 
 			<div layout horizontal center center-justified flex wrap>
 
 				<paper-shadow auto-vertical class="card" z="2">
 
-					<h3>Laddningskapacitet</h3>
+					<div horizontal layout center center-justified>
+						<h3 flex>Laddningskapacitet</h3>
+						<paper-dropdown-menu label="Laddare">
+							<paper-dropdown class="dropdown" halign="right">
+								<core-menu class="menu" on-core-select="{{ setChargerValues }}">
+									<template repeat="{{ charger in chargers }}">
+										<paper-item>{{ charger.name }}</paper-item>
+									</template>
+								</core-menu>
+							</paper-dropdown>
+						</paper-dropdown-menu>
+					</div>
 
 					<core-field>
 						<label flex>Spänning</label>
@@ -109,7 +138,19 @@
 				</paper-shadow>
 
 				<paper-shadow auto-vertical class="card" z="2">
-					<h3>Elpris</h3>
+
+					<div horizontal layout center center-justified>
+						<h3 flex>Elpris</h3>
+						<paper-dropdown-menu label="Elpris">
+							<paper-dropdown class="dropdown" halign="right">
+								<core-menu class="menu" on-core-select="{{ setPowerPrice }}">
+									<template repeat="{{ price in powerPrices }}">
+										<paper-item>{{ price.name }}</paper-item>
+									</template>
+								</core-menu>
+							</paper-dropdown>
+						</paper-dropdown-menu>
+					</div>
 
 					<core-field>
 						<label flex>Pris per kWh</label>
@@ -139,13 +180,35 @@
 				</paper-shadow>
 			</div>
 
-			<h2>Bensin- / dieselbil</h2>
+			<div horizontal layout>
+				<h2 flex>Bensin- / dieselbil</h2>
+				<paper-dropdown-menu label="Välj bil">
+					<paper-dropdown class="dropdown" halign="right">
+						<core-menu class="menu" on-core-select="{{ setFuelBurn }}">
+							<template repeat="{{ car in fuelCars }}">
+								<paper-item>{{ car.name }}</paper-item>
+							</template>
+						</core-menu>
+					</paper-dropdown>
+				</paper-dropdown-menu>
+			</div>
 
 			<div layout horizontal center center-justified flex wrap>
 
 				<paper-shadow auto-vertical class="card" z="2">
 
-					<h3>Kostnad / förbrukning</h3>
+					<div horizontal layout center center-justified>
+						<h3 flex>Kostnad / förbrukning</h3>
+						<paper-dropdown-menu label="Bensinpris">
+							<paper-dropdown class="dropdown" halign="right">
+								<core-menu class="menu" on-core-select="{{ setFuelPrice }}">
+									<template repeat="{{ price in fuelPrices }}">
+										<paper-item>{{ price.name }}</paper-item>
+									</template>
+								</core-menu>
+							</paper-dropdown>
+						</paper-dropdown-menu>
+					</div>
 
 					<core-field>
 						<label flex>Bensinkostnad per liter</label>
@@ -175,19 +238,92 @@
 		</template>
 	</scaffold-layout>
 <script>
-/*global document */
-var t = document.getElementById('t');
-t.toFixed = function (val, fixval) {
-	return val.toFixed(fixval);
-};
-t.currency = 'SEK';
-t.moneyUnit = 'kr';
-t.ampere = 10;
-t.volt = 230;
-t.kwhPrice = 0.80;
-t.chargingTime = 5;
-t.evDistance = 50;
-t.literFuelCharge = 13.5;
-t.fuelBurn = 0.7;
+/*global document, Polymer */
+(function () {
+
+	"use strict";
+
+	Polymer.mixin(document.getElementById('t'), {
+		chargers: [{
+			name: 'Hemma',
+			values: {
+				volt: 230,
+				ampere: 10
+			}
+		}, {
+			name: 'Snabb',
+			values: {
+				volt: 500,
+				ampere: 125
+			}
+		}],
+		evCars: [{
+			name: 'Mitsubishi Outlander PHEV 2014',
+			values: {
+				batteryKwh: 12,
+				evDistance: 50
+			}
+		}],
+		fuelCars: [{
+			name: 'Mitsubishi Outlander 2014',
+			fuelBurn: 0.69
+		}],
+		fuelPrices: [{
+			name: 'Blyfri 95, Stockholm, Mars 2015',
+			price: 13.34
+		}],
+		powerPrices: [{
+			name: '2015 Mars (billigt)',
+			price: 0.8
+		}, {
+			name: '2010 Feburari (dyrt)',
+			price: 1.0228 + 0.28
+		}],
+		setChargerValues: function (event, detail, sender) {
+			if (detail.isSelected) {
+				var charger = detail.item.templateInstance.model.charger;
+				this.ampere = charger.values.ampere;
+				this.volt = charger.values.volt;
+			}
+		},
+		setEvCarValues: function (event, detail, sender) {
+			if (detail.isSelected) {
+				var car = detail.item.templateInstance.model.evCar;
+				this.evDistance = car.values.evDistance;
+				this.chargingTime = (car.values.batteryKwh / (this.volt * this.ampere / 1000)).toFixed(2);
+			}
+		},
+		setFuelBurn: function (event, detail, sender) {
+			if (detail.isSelected) {
+				var car = detail.item.templateInstance.model.car;
+				this.fuelBurn = car.fuelBurn;
+			}
+		},
+		setFuelPrice: function (event, detail, sender) {
+			if (detail.isSelected) {
+				var price = detail.item.templateInstance.model.price;
+				this.literFuelCharge = price.price;
+			}
+		},
+		setPowerPrice: function (event, detail, sender) {
+			if (detail.isSelected) {
+				var price = detail.item.templateInstance.model.price;
+				this.kwhPrice = price.price;
+			}
+		},
+		toFixed: function (val, fixval) {
+			return val.toFixed(fixval);
+		},
+		currency: 'SEK',
+		moneyUnit: 'kr',
+		ampere: 10,
+		volt: 230,
+		kwhPrice: 0.80,
+		chargingTime: 5,
+		evDistance: 50,
+		literFuelCharge: 13.5,
+		fuelBurn: 0.7
+	});
+}());
 </script>
 </template>
