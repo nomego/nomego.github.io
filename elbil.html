@@ -278,9 +278,13 @@
 		}],
 		setChargerValues: function (event, detail, sender) {
 			if (detail.isSelected) {
-				var charger = detail.item.templateInstance.model.charger;
+				var charger = detail.item.templateInstance.model.charger,
+					oldWatt = this.ampere * this.volt,
+					newWatt = charger.values.ampere * charger.values.volt,
+					factorChange = newWatt / oldWatt;
 				this.ampere = charger.values.ampere;
 				this.volt = charger.values.volt;
+				this.chargingTime = this.chargingTime / factorChange;
 			}
 		},
 		setEvCarValues: function (event, detail, sender) {
