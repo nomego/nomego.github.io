@@ -94,6 +94,33 @@
 			<div layout horizontal center center-justified flex wrap>
 
 				<paper-shadow auto-vertical class="card" z="2">
+					<h3>Räckvidd</h3>
+
+					<core-field>
+						<label flex>Räckvidd</label>
+						<paper-input flex type="number" value="{{ evDistance }}"></paper-input>
+						<label class="after">kilometer</label>
+					</core-field>
+
+					<p class="info">
+						Kostnaden per mil blir {{ volt * ampere * chargingTime / 100 * kwhPrice / evDistance | toFixed(2) }}{{ moneyUnit }} {{ currency }}.
+					</p>
+				</paper-shadow>
+
+				<paper-shadow auto-vertical class="card" z="2">
+
+					<h3>Laddningstid</h3>
+
+					<core-field>
+						<label flex>Laddningstid</label>
+						<paper-input flex type="number" value="{{ chargingTime }}"></paper-input>
+						<label class="after">timmar</label>
+					</core-field>
+
+					<p class="info">Tid innan batteriet är fulladdat, förbrukning för en full laddning är max {{ volt * ampere * chargingTime / 1000 }} kWh.</p>
+				</paper-shadow>
+
+				<paper-shadow auto-vertical class="card" z="2">
 
 					<div horizontal layout center center-justified>
 						<h3 flex>Laddningskapacitet</h3>
@@ -120,21 +147,7 @@
 						<label class="after">ampere</label>
 					</core-field>
 
-					<p class="info">Normal säkring hemma är 10 ampere.<br/>Max belastning på säkringen är {{ volt * ampere }} watt (W) eller {{ volt * ampere / 1000 }} kilowatt (kW).<br/>Max förbrukning under en timme blir alltså {{ volt * ampere }} Wh eller {{ volt * ampere / 1000 }} kWh.</p>
-				</paper-shadow>
-
-
-				<paper-shadow auto-vertical class="card" z="2">
-
-					<h3>Laddningstid</h3>
-
-					<core-field>
-						<label flex>Laddningstid</label>
-						<paper-input flex type="number" value="{{ chargingTime }}"></paper-input>
-						<label class="after">timmar</label>
-					</core-field>
-
-					<p class="info">Tid innan batteriet är fulladdat, förbrukning för en full laddning är max {{ volt * ampere * chargingTime / 1000 }} kWh.</p>
+					<p class="info">Max belastning på säkringen är {{ volt * ampere }} watt (W) eller {{ volt * ampere / 1000 }} kilowatt (kW).<br/>Max förbrukning under en timme blir alltså {{ volt * ampere }} Wh eller {{ volt * ampere / 1000 }} kWh.</p>
 				</paper-shadow>
 
 				<paper-shadow auto-vertical class="card" z="2">
@@ -159,23 +172,7 @@
 					</core-field>
 
 					<p class="info">
-						Detta ska inbegripa samtliga kostnader för dig som konsument.<br/>
-						Mars 2015 låg ett bra avtal på ca 75 öre / kWh allt inkluderat.<br/>
-						Kostnad för en full laddning är max {{ volt * ampere * chargingTime / 1000 * kwhPrice | toFixed(2) }}{{ moneyUnit }} {{ currency }}.
-					</p>
-				</paper-shadow>
-
-				<paper-shadow auto-vertical class="card" z="2">
-					<h3>Räckvidd</h3>
-
-					<core-field>
-						<label flex>Räckvidd</label>
-						<paper-input flex type="number" value="{{ evDistance }}"></paper-input>
-						<label class="after">kilometer</label>
-					</core-field>
-
-					<p class="info">
-						Kostnaden per mil blir {{ volt * ampere * chargingTime / 100 * kwhPrice / evDistance | toFixed(2) }}{{ moneyUnit }} {{ currency }}.
+						Kostnad för en full laddning är {{ volt * ampere * chargingTime / 1000 * kwhPrice | toFixed(2) }}{{ moneyUnit }} {{ currency }}.
 					</p>
 				</paper-shadow>
 			</div>
