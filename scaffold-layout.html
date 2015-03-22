@@ -5,50 +5,37 @@
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-toolbar/core-toolbar.html">
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-item/core-item.html">
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-icons/maps-icons.html">
+<link rel="import" href="https://www.polymer-project.org/0.5/components/paper-icon-button/paper-icon-button.html">
 
 <polymer-element name="scaffold-layout" noscript>
   <template>
     <style>
+      core-header-panel[drawer]::shadow #mainContainer {
+        border-right: solid 1px #ddd;
+      }
       core-toolbar {
-        background-color: #2f83d0;
+        background-color: #607D8B;
         color: #fff;
-        border-bottom: 1px solid #ddd;
       }
       .content {
         padding: 5px 20px 40px 20px;
       }
-      :host /deep/ core-header-panel[main] {
-        background-color: #fff;
-      }
-      core-header-panel {
-        background-color: #fff;
-      }
-      core-header-panel core-item {
-        padding: 2px 12px;
-        line-height: 40px;
-      }
-      core-header-panel core-item:not(:first-of-type) {
-        border-top: 1px solid #f5f5f5;
-      }
-      core-header-panel core-item:hover,
-      core-header-panel core-item:focus {
-        background-color: #fcfcfc;
-        color: #222;
-      }
-      core-header-panel core-item[active] {
-        border-right: 6px solid #f5f5f5;
-      }
     </style>
     <core-drawer-panel>
-      <core-header-panel drawer flex mode="seamed">
+      <core-header-panel drawer flex>
         <core-toolbar class="{{color}}">nomego labs</core-toolbar>
         <div>
           <core-item icon="maps:directions-car" label="Elbil" active?="{{selected == 'elbil'}}"><a is="pushstate-anchor" href="#/"></a></core-item>
         </div>
       </core-header-panel>
       <core-header-panel main>
-        <core-toolbar><content select=".title"></content></core-toolbar>
-        <content></content>
+        <core-toolbar>
+          <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+          <content select=".title"></content>
+        </core-toolbar>
+        <div class="content">
+          <content></content>
+        </div>
       </core-header-panel>
     </core-drawer-panel>
   </template>
