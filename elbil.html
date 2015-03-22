@@ -5,6 +5,7 @@
 <link rel="import" href="https://www.polymer-project.org/0.5/components/core-input/core-input.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/font-roboto/roboto.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-input/paper-input-decorator.html" />
+<link rel="import" href="https://www.polymer-project.org/0.5/components/paper-input/paper-input.html" />
 <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-shadow/paper-shadow.html" />
 <link rel="import" href="scaffold-layout.html" />
 
@@ -18,7 +19,8 @@
 			background: white;
 			box-sizing: border-box;
 			width: 450px;
-			max-width: 90%;
+			min-width: 40%;
+			max-width: 95%;
 			margin: 16px;
 			padding: 16px;
 			border-radius: 3px;
@@ -27,7 +29,7 @@
 			position: absolute;
 			color: #888;
 			right: 0;
-			top: 10px;
+			top: 17px;
 		}
 		p.info {
 			color: #888;
@@ -44,82 +46,68 @@
 	<scaffold-layout selected="elbil">
 		<div class="title">Elbil vs bensin- / dieselbil</div>
 		<template id="t" is="auto-binding">
+
 			<h2>Allmänt</h2>
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+			<div layout horizontal center center-justified flex wrap>
+				<paper-shadow auto-vertical class="card" z="2">
 					<h3>Valuta</h3>
 
 					<core-field>
 						<label flex>Valuta</label>
-						<paper-input-decorator label="Valuta">
-							<input value="{{ currency }}" />
-						</paper-input-decorator>
+						<paper-input value="{{ currency }}"></paper-input>
 					</core-field>
 
 					<core-field>
 						<label flex>Enhet</label>
-						<paper-input-decorator label="Enhet">
-							<input value="{{ moneyUnit }}" />
-						</paper-input-decorator>
+						<paper-input value="{{ moneyUnit }}"></paper-input>
 					</core-field>
 				</paper-shadow>
 			</div>
 
 			<h2>Elbil</h2>
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+			<div layout horizontal center center-justified flex wrap>
+
+				<paper-shadow auto-vertical class="card" z="2">
 
 					<h3>Laddningskapacitet</h3>
 
 					<core-field>
 						<label flex>Spänning</label>
-						<paper-input-decorator flex label="Volt">
-							<input type="number" value="{{ volt }}" />
-						</paper-input-decorator>
+						<paper-input value="{{ volt }}"></paper-input>
 						<label class="after">volt</label>
 					</core-field>
 
 					<core-field>
 						<label flex>Strömstyrka</label>
-						<paper-input-decorator flex label="Ampere">
-							<input type="number" value="{{ ampere }}" />
-						</paper-input-decorator>
+						<paper-input type="number" value="{{ ampere }}"></paper-input>
 						<label class="after">ampere</label>
 					</core-field>
 
 					<p class="info">Normal säkring hemma är 10 ampere.<br/>Max belastning på säkringen är {{ volt * ampere }} watt (W) eller {{ volt * ampere / 1000 }} kilowatt (kW).<br/>Max förbrukning under en timme blir alltså {{ volt * ampere }} Wh eller {{ volt * ampere / 1000 }} kWh.</p>
 				</paper-shadow>
-			</div>
 
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+				<paper-shadow auto-vertical class="card" z="2">
 
 					<h3>Laddningstid</h3>
 
 					<core-field>
 						<label flex>Laddningstid</label>
-						<paper-input-decorator flex label="Timmar laddningstid">
-							<input type="number" value="{{ chargingTime }}" />
-						</paper-input-decorator>
+						<paper-input type="number" value="{{ chargingTime }}"></paper-input>
 						<label class="after">timmar</label>
 					</core-field>
 
 					<p class="info">Tid innan batteriet är fulladdat, förbrukning för en full laddning är max {{ volt * ampere * chargingTime / 1000 }} kWh.</p>
 				</paper-shadow>
-			</div>
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+				<paper-shadow auto-vertical class="card" z="2">
 					<h3>Elpris</h3>
 
 					<core-field>
 						<label flex>Pris per kWh</label>
-						<paper-input-decorator flex label="kWh pris">
-							<input type="number" value="{{ kwhPrice }}" />
-						</paper-input-decorator>
+						<paper-input type="number" value="{{ kwhPrice }}"></paper-input>
 						<label class="after">{{ moneyUnit }} {{ currency }}</label>
 					</core-field>
 
@@ -129,17 +117,13 @@
 						Kostnad för en full laddning är max {{ volt * ampere * chargingTime / 1000 * kwhPrice | toFixed(2) }}{{ moneyUnit }} {{ currency }}.
 					</p>
 				</paper-shadow>
-			</div>
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+				<paper-shadow auto-vertical class="card" z="2">
 					<h3>Räckvidd</h3>
 
 					<core-field>
 						<label flex>Räckvidd</label>
-						<paper-input-decorator flex label="Kilometer räckvidd">
-							<input type="number" value="{{ evDistance }}" />
-						</paper-input-decorator>
+						<paper-input type="number" value="{{ evDistance }}"></paper-input>
 						<label class="after">kilometer</label>
 					</core-field>
 
@@ -151,23 +135,20 @@
 
 			<h2>Bensin- / dieselbil</h2>
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+			<div layout horizontal center center-justified flex wrap>
+
+				<paper-shadow auto-vertical class="card" z="2">
 
 					<h3>Kostnad / förbrukning</h3>
 
 					<core-field>
 						<label flex>Bensinkostnad per liter</label>
-						<paper-input-decorator flex label="Literkostnad">
-							<input type="number" value="{{ literFuelCharge }}" />
-						</paper-input-decorator>
+						<paper-input type="number" value="{{ literFuelCharge }}"></paper-input>
 						<label class="after">{{ moneyUnit }} {{ currency }}</label>
 					</core-field>
 					<core-field>
 						<label flex>Förbrukning per mil</label>
-						<paper-input-decorator flex label="Bensin-/dieselförbrukning">
-							<input type="number" value="{{ fuelBurn }}" />
-						</paper-input-decorator>
+						<paper-input type="number" value="{{ fuelBurn }}"></paper-input>
 						<label class="after">liter</label>
 					</core-field>
 
@@ -179,8 +160,8 @@
 
 			<h2>Resultat</h2>
 
-			<div layout horizontal center-justified flex>
-				<paper-shadow class="card" z="2">
+			<div layout horizontal center center-justified flex wrap>
+				<paper-shadow auto-vertical class="card" z="2">
 
 					<h3>El kostar {{ (volt * ampere * chargingTime * kwhPrice / evDistance) / (literFuelCharge * fuelBurn) | toFixed(2) }}% av vad bensin/diesel kostar!<br/>För samma pris som du kan åka {{ 100 / ((volt * ampere * chargingTime * kwhPrice / evDistance) / (literFuelCharge * fuelBurn)) | toFixed(2) }} gånger längre på el!</h3>
 				</paper-shadow>
